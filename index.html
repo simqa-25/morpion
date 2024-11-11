@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeu de Morpion</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+    <div id="gameContainer">
+        <h1>Jeu de Morpion</h1>
+
+      
+        <div id="gameModeTabs">
+            <button id="humanVsHuman" class="tabButton">Joueur vs Joueur</button>
+            <button id="humanVsComputer" class="tabButton">Joueur vs Ordinateur</button>
+        </div>
+
+      
+        <div id="grid">
+            <div class="row">
+                <div class="cell" data-index="0"></div>
+                <div class="cell" data-index="1"></div>
+                <div class="cell" data-index="2"></div>
+            </div>
+            <div class="row">
+                <div class="cell" data-index="3"></div>
+                <div class="cell" data-index="4"></div>
+                <div class="cell" data-index="5"></div>
+            </div>
+            <div class="row">
+                <div class="cell" data-index="6"></div>
+                <div class="cell" data-index="7"></div>
+                <div class="cell" data-index="8"></div>
+            </div>
+        </div>
+
+        
+        <div id="message"></div>
+
+        
+        <button id="replayButton" style="display: none;">Rejouer</button>
+    </div>
+
+    <script src="/assets/js/index.js"></script>
+</body>
+</html>
