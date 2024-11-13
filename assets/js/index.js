@@ -55,9 +55,9 @@ const winningCombinations = [
 
 // Fonction pour gérer les clics sur les cellules
 function handleCellClick(event) {
-  const cell = event.target;
+  let cell = event.target;
 
-  // Si la cellule est déjà occupée ou si le jeu est terminé, on ne fait rien
+  // Si la cellule est deja occupe ou si le jeu est terminé, on ne fait rien
   if (
     cell.textContent !== "" ||
     gameOver ||
@@ -82,7 +82,7 @@ function handleCellClick(event) {
     currentPlayer = currentPlayer === "X" ? "O" : "X";
     messageElement.textContent = `C'est au tour du joueur ${currentPlayer}`;
 
-    // Si c'est le tour de l'ordinateur, il joue automatiquement
+    // Pour rajouter un delai de reflexion pour l'ordi genre il refelchit
     if (gameMode === "humanVsComputer" && currentPlayer === "O" && !gameOver) {
       setTimeout(() => {
         computerMove();
@@ -105,21 +105,34 @@ function isBoardFull() {
 
 // Fonction pour l'ordinateur de jouer
 function computerMove() {
-  const emptyCells = [...cells].filter((cell) => cell.textContent === "");
-  const randomCell = emptyCells[randomize(0, emptyCells.length - 1)];
-  randomCell.textContent = "O";
+  // Crée un tableau vide pour stocker les cellules vides
+  const emptyCells = [];
 
-  if (checkWinner("O")) {
-    gameOver = true;
-    messageElement.textContent = "L'ordinateur a gagné !";
-    replayButton.style.display = "inline-block";
-  } else if (isBoardFull()) {
-    gameOver = true;
-    messageElement.textContent = "Match nul !";
-    replayButton.style.display = "inline-block";
-  } else {
-    currentPlayer = "X";
-    messageElement.textContent = `C'est au tour du joueur ${currentPlayer}`;
+  // Parcours toutes les cellules pour trouver celles qui sont vides
+  for (let i = 0; i < cells.length; i++) {
+    if (cells[i].textContent === "") {
+      emptyCells.push(cells[i]);
+    }
+  }
+
+  // Si des cellules vides existent, choisir une cellule au hasard
+  if (emptyCells.length > 0) {
+    const randomCell = emptyCells[randomize(0, emptyCells.length - 1)];
+    randomCell.textContent = "O"; // L'ordinateur joue avec le "O"
+
+    // Pour verifier si l'ordinateur a gagne
+    if (checkWinner("O")) {
+      gameOver = true;
+      messageElement.textContent = "L'ordinateur a gagné !";
+      replayButton.style.display = "inline-block";
+    } else if (isBoardFull()) {  // Vérifie si le plateau est plein (match nul)
+      gameOver = true;
+      messageElement.textContent = "Match nul !";
+      replayButton.style.display = "inline-block";
+    } else {
+      currentPlayer = "X"; // C'est au tour du joueur "X"
+      messageElement.textContent = `C'est au tour du joueur ${currentPlayer}`;
+    }
   }
 }
 
